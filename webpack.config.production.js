@@ -2,6 +2,9 @@ const { resolve } = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+var definePlugin = new webpack.DefinePlugin({
+  __NODE_ENV__: JSON.stringify("production"),
+});
 
 module.exports = {
   context: __dirname,
@@ -16,14 +19,15 @@ module.exports = {
   mode: "production",
   optimization: {
     splitChunks: {
-      chunks: "all"
+      chunks: "all",
     },
-    // runtimeChunk: true
+    runtimeChunk: true
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve(__dirname, "src", "index.html")
-    })
+    }),
+    definePlugin
   ],
   module: {
     rules: [
@@ -44,7 +48,7 @@ module.exports = {
       }
     ]
   },
-  devtool: "cheap-eval-source-map",
+  devtool: "source-map",
   resolve: {
     alias: {
       src: resolve(__dirname, "src")
