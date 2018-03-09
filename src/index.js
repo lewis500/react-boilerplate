@@ -10,7 +10,6 @@ import type {State} from 'src/types/State';
 import root from 'src/reducers/root';
 
 const store:Store<State,Action> = createStore(root);
-
 const container = document.getElementById("root");
 if (!container) throw Error("no root container");
 

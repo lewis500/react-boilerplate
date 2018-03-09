@@ -4,7 +4,9 @@
   "author": "Lewis <lewis500@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "build":
+      "webpack --color --progress --config webpack.config.production.js"
   },
   "dependencies": {
     "classnames": "^2.2.5",

@@ -17,8 +17,7 @@ export const get = (path: string): any => {
 export const upo = (oldObject: {}, newValues: {}) =>
   Object.assign({}, oldObject, newValues);
 
-import type { Action } from "src/types/Action";
-type Reducer<S, A: Action> = (s: S, a: A) => S;
+import type { Reducer } from "src/types/Reducer";
 
 export function createReducer<S, A: *>(
   initialState: S,
