@@ -1,9 +1,9 @@
 const { resolve } = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 var definePlugin = new webpack.DefinePlugin({
-  __NODE_ENV__: JSON.stringify("production"),
+  __NODE_ENV__: JSON.stringify("production")
 });
 
 module.exports = {
@@ -13,19 +13,20 @@ module.exports = {
   },
   output: {
     path: resolve(__dirname, "public"),
-    publicPath: "/",
+    publicPath: "public/",
     filename: "[name].js"
   },
   mode: "production",
   optimization: {
     splitChunks: {
-      chunks: "all",
+      chunks: "all"
     },
     runtimeChunk: true
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: resolve(__dirname, "src", "index.html")
+      template: resolve(__dirname, "src", "index.html"),
+      filename: resolve(__dirname, "index.html")
     }),
     definePlugin
   ],
