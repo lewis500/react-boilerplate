@@ -1,19 +1,15 @@
 const { resolve } = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
-var definePlugin = new webpack.DefinePlugin({
-  __NODE_ENV__: JSON.stringify("production")
-});
 
 module.exports = {
   context: __dirname,
   entry: {
-    main: "./src/index.js"
+    main: "./src/main.tsx"
   },
   output: {
     path: resolve(__dirname, "public"),
-    publicPath: "public/",
+    // publicPath: "public/",
     filename: "[name].js"
   },
   mode: "production",
@@ -28,32 +24,40 @@ module.exports = {
       template: resolve(__dirname, "src", "index.html"),
       filename: resolve(__dirname, "index.html")
     }),
-    definePlugin
+    new webpack.DefinePlugin({
+      __NODE_ENV__: JSON.stringify("production")
+    })
   ],
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /\.tsx?$/,
         include: resolve(__dirname, "src"),
-        loader: "babel-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        loader: "babel-loader"
       },
       {
         test: /\.scss$/,
         exclude: /node_modules/,
         use: [
           "style-loader",
-          "css-loader?modules&importLoaders=1&localIdentName=[name]__[local]",
+          "css-modules-typescript-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true
+            }
+          },
           "sass-loader"
         ]
       }
     ]
   },
-  devtool: "source-map",
+  // devtool: "source-map",
   resolve: {
     alias: {
       src: resolve(__dirname, "src")
     },
-    extensions: [".js", ".json", ".scss"]
+    extensions: [".ts", ".tsx", ".js", ".json", ".scss"]
   }
 };
